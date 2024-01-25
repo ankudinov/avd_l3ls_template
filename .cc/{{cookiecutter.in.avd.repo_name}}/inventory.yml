@@ -32,6 +32,6 @@ all:
     #   children:
     #     {{ cookiecutter.in.avd.fabric_name }}_LEAFS:
 
-    # {{ cookiecutter.in.avd.fabric_name }}_TENANTS:
-    #   children:
-    #     {{ cookiecutter.in.avd.fabric_name }}_LEAFS:
+    {{ cookiecutter.in.avd.fabric_name }}_TENANTS:
+      children:
+        {{ cookiecutter.in.avd.fabric_name }}_LEAFS:
