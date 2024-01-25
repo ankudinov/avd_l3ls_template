@@ -1,0 +1,46 @@
+---
+fabric_name: {{ cookiecutter.in.avd.fabric_name }}
+
+# Spine Switches
+spine:
+  defaults:
+    platform: cEOS
+    bgp_as: {{ cookiecutter.in.fabric_spine_inventory.0.bgp_as }}
+    loopback_ipv4_pool: 192.0.255.0/24
+  nodes:
+{%- for spine in cookiecutter.in.fabric_spine_inventory %}
+    - name: {{ spine.hostname }}
+      id: {{ spine.id }}
+      mgmt_ip: {{ spine.management_ip }}
+{%- endfor %}
+
+l3leaf:
+  defaults:
+    platform: cEOS
+    loopback_ipv4_pool: 192.0.255.0/24
+    loopback_ipv4_offset: 2
+    vtep_loopback_ipv4_pool: 192.0.254.0/24
+    uplink_interfaces: {{ cookiecutter.in.fabric_leaf_inventory.0.uplink_interfaces }}
+    uplink_switches: {{ cookiecutter.in.fabric_leaf_inventory.0.uplink_switches }}
+    uplink_ipv4_pool: 172.30.255.0/24
+    mlag_interfaces: {{ cookiecutter.in.fabric_leaf_inventory.0.mlag_interfaces }}
+    mlag_peer_ipv4_pool: 10.255.252.0/24
+    mlag_peer_l3_ipv4_pool: 10.255.251.0/24
+    virtual_router_mac_address: 00:1c:73:00:dc:01
+    spanning_tree_mode: mstp
+    spanning_tree_priority: 16384
+  node_groups:
+{%- for leaf in cookiecutter.in.fabric_leaf_inventory %}
+  {%- set leaf_id_int = leaf.id | int %}
+  {%- if leaf_id_int % 2 != 0 %}
+    - group: pod{{ leaf_id_int // 2 }}
+      bgp_as: {{ leaf.bgp_as }}
+      nodes:
+  {%- endif %}
+        - name: {{ leaf.hostname }}
+          id: {{ leaf.id }}
+          mgmt_ip: {{ leaf.management_ip }}
+          uplink_switch_interfaces: {{ leaf.uplink_switch_interfaces }}
+{%- endfor %}
+
+p2p_uplinks_mtu: 9214

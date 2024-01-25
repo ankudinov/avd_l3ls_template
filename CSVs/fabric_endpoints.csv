@@ -1,0 +1,6 @@
+server_name,switch_hostname,switch_port,description,port_channel_mode,switchport_mode,switchport_vlans
+
+test-server,L01,Ethernet68,trunk-to-test-server,active,trunk,"10-20,100"
+test-server,L02,Ethernet68,trunk-to-test-server,active,trunk,"10-20,100"
+test-server-2,L03,Ethernet22,trunk-to-test-server,on,access,10
+test-server-2,L04,Ethernet22,trunk-to-test-server,on,access,10

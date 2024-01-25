@@ -1,0 +1,44 @@
+---
+mgmt_gateway: 192.168.0.1
+mgmt_interface: {{cookiecutter.in.avd.mgmt_interface}}
+
+name_servers:
+  - 8.8.8.8
+
+# NTP servers
+ntp:
+  local_interface:
+    name: {{cookiecutter.in.avd.mgmt_interface}}
+    vrf: MGMT
+  servers:
+    - name: time.google.com
+      vrf: MGMT
+    - name: time.windows.com
+      vrf: MGMT
+    - name: time.apple.com
+      vrf: MGMT
+
+dns_domain: avd.lab
+
+# Local Users
+local_users:
+  - name: arista
+    privilege: 15
+    role: network-admin
+    sha512_password: {% raw %}"{{ ansible_password | password_hash(rounds=5000, salt=1) }}"{% endraw %}
+
+
+ansible_user: arista
+ansible_password: arista
+ansible_network_os: arista.eos.eos
+# Configure privilege escalation
+ansible_become: true
+ansible_become_method: enable
+# HTTPAPI configuration
+ansible_connection: httpapi
+ansible_httpapi_port: 443
+ansible_httpapi_use_ssl: true
+ansible_httpapi_validate_certs: false
+ansible_python_interpreter: $(which python3)
+avd_data_conversion_mode: error
+avd_data_validation_mode: error

@@ -1,0 +1,4 @@
+tenant_name,vlan_number,vlan_name,filter_tags,ip_vrf,ip_virtual_address_and_mask
+TENANT_A,100,TA_VLAN100,"L01,L02",TEST_VRF,10.100.100.1/24
+TENANT_A,150,TA_VLAN150,"L03,L04",TEST_VRF,10.100.150.1/24
+TENANT_A,200,TA_VLAN200,l2_only,,

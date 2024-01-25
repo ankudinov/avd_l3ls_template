@@ -1,0 +1,11 @@
+---
+connected_endpoints_keys:
+
+  - key: servers
+    type: server
+{%- for k, v in cookiecutter.in.items() %}
+  {%- if '_endpoints' in k %}
+  - key: {{ k }}
+    type: server
+    {%- endif %}
+{%- endfor %}

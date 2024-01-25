@@ -1,0 +1,4 @@
+__CCkey, __CCvalue, comments
+repo_name, avd_inventory, AVD repository name
+mgmt_interface, Management0, Management interface for all switches managed by AVD
+fabric_name, AVD_FABRIC, AVD fabric name

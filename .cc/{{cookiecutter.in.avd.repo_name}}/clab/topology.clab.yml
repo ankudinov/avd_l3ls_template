@@ -1,0 +1,29 @@
+name: {{ cookiecutter.in.avd.fabric_name }}-clab
+prefix: ""
+
+mgmt:
+  network: custom_mgmt
+  ipv4-subnet: 192.168.0.0/24
+
+topology:
+  kinds:
+    ceos:
+      enforce-startup-config: true
+      image: ceos-lab:latest
+  defaults:
+    kind: ceos
+    startup-config: init-configs/ceos-init.cfg
+  nodes:
+{%- for spine in cookiecutter.in.fabric_spine_inventory %}
+    {{ spine.hostname }}:
+      mgmt-ipv4: {{ spine.management_ip.split('/')[0] }}
+{%- endfor %}
+{%- for leaf in cookiecutter.in.fabric_leaf_inventory %}
+    {{ leaf.hostname }}:
+      mgmt-ipv4: {{ leaf.management_ip.split('/')[0] }}
+{%- endfor %}
+
+  links:
+{%- for link in cookiecutter.in.fabric_cabling_plan %}
+  - endpoints: ["{{link.local_switch}}:eth{{link.local_interface[1:]}}", "{{link.remote_switch}}:eth{{link.remote_interface[1:]}}"]
+{%- endfor %}
