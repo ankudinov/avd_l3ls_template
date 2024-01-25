@@ -1,6 +1,6 @@
 {
-    "image": "ghcr.io/aristanetworks/avd/dev:python3.11",
-    "postCreateCommand": "pip3 install cookiecutter",
+    "image": "ghcr.io/aristanetworks/avd/universal:python3.11-avd-v4.6.0-dev1",
+    "postCreateCommand": "bash -c \"$(curl -sL https://get.containerlab.dev)\"; pip3 install passlib cookiecutter",
     "customizations": {
         "vscode": {
             "extensions": [
