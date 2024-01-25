@@ -11,8 +11,3 @@ for endpoints_key, endpoints in cookiecutter['out']['endpoints'].items():
     yaml_filename = os.getcwd() + """/group_vars/{{cookiecutter.in.avd.fabric_name}}_ENDPOINTS/"""+ endpoints_key + '.yml'
     with open(yaml_filename, 'w') as f:
         yaml.dump(endpoints, f)
-
-# add tenant files
-yaml_filename = os.getcwd() + """/group_vars/{{ cookiecutter.in.avd.fabric_name }}_TENANTS.yml"""
-with open(yaml_filename, 'w') as f:
-    yaml.dump({'tenants': cookiecutter['out']['tenants']}, f)
