@@ -4,7 +4,7 @@ import os
 import json
 import yaml
 
-cookiecutter = json.loads("""{{ cookiecutter.out.endpoints | jsonify }}""")
+cookiecutter = json.loads("""{{ cookiecutter | jsonify }}""")
 
 # add endpoint files
 for endpoints_key, endpoints in cookiecutter['out']['endpoints'].items():
@@ -15,4 +15,4 @@ for endpoints_key, endpoints in cookiecutter['out']['endpoints'].items():
 # add tenant files
 yaml_filename = os.getcwd() + """/group_vars/{{ cookiecutter.in.avd.fabric_name }}_TENANTS.yml"""
 with open(yaml_filename, 'w') as f:
-    yaml.dump(cookiecutter['out']['tenants'], f)
+    yaml.dump({'tenants': cookiecutter['out']['tenants']}, f)
