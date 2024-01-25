@@ -1,6 +1,6 @@
 {
     "image": "ghcr.io/aristanetworks/avd/universal:python3.11-avd-v4.6.0-dev1",
-    "postCreateCommand": "bash -c \"$(curl -sL https://get.containerlab.dev)\"; pip3 install passlib; pip3 install --force git+https://github.com/ankudinov/cook_and_cut.git; eval \"$(register-python-argcomplete ccAVD)\"",
+    "postCreateCommand": "bash -c \"$(curl -sL https://get.containerlab.dev)\"; pip3 install passlib git+https://github.com/ankudinov/cook_and_cut.git; echo 'eval \"$(register-python-argcomplete ccAVD)\"' >> ~/.zshrc",
     "customizations": {
         "vscode": {
             "extensions": [
